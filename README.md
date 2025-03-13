@@ -1,5 +1,5 @@
 # CodeJailbreaker
-![overview](fig/overview.png)
+![overview](./fig/overview.png)
 
 This is the official repository of paper "**Smoke and Mirrors: Jailbreaking LLM-based Code Generation via Implicit Malicious Prompts**".
 
