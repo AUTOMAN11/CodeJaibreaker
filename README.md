@@ -1,11 +1,58 @@
-# CodeJailbreaker
+# Smoke and Mirrors: Jailbreaking LLM-based Code Generation via Implicit Malicious Prompts
+
+[![arXiv: paper](https://img.shields.io/badge/arXiv-paper-red.svg)](https://arxiv.org/abs/2503.17953)
+
+
 ![overview](./fig/overview.png)
 
 This is the official repository of paper "**Smoke and Mirrors: Jailbreaking LLM-based Code Generation via Implicit Malicious Prompts**".
 
 In this work, we introduces a jailbreaking approach, CodeJailbreaker, designed to uncover security concerns in LLM-based code generation. The basic observation is that existing security mechanisms for LLMs are built through the instruction-following paradigm, where malicious intent is explicitly articulated within the instruction of the prompt. Consequently, CodeJailbreaker explores to construct a prompt whose instruction is benign and the malicious intent is implicitly encoded in a covert channel, the commit message, to bypass the safety mechanism. Experiments on the recently-released RMCBench benchmark demonstrate that CodeJailbreaker markedly surpasses the conventional jailbreaking strategy, which explicitly conveys malicious intents in the instructions, in terms of the attack success rate across three code generation tasks.
 
-## Code Language Distribution of the Dataset
+## Table of Contents
+
+- [Installation](#installation)
+- [Dataset](#Datset)
+    - [multi-scenarios](#muti-scenarios)
+    - [multi-tasks](#multi-tasks)
+    - [Code Language Distribution](#code-language-distribution)
+- [Baselines](#baselines)
+- [Usage](#usage)
+
+## Installation
+To run the code in this repository, follow these steps:
+
+1. Clone this repository: 
+
+```sh
+git clone https://github.com/AUTOMAN11/CodeJaibreaker.git
+cd CodeJaibreaker
+```
+
+2. Prepare the conda environment:
+
+```sh
+conda create -n codejailbreaker python=3.10.14
+conda activate codejailbreaker
+```
+
+3. Install the required packages:
+
+```sh
+pip install -r requirements.txt
+```
+
+## Dataset
+### muti-scenarios
+- text-to-code
+- code-to-code
+
+### multi-tasks
+- text-to-code generation
+- function-level completion
+- block-level completion
+
+### Code Language Distribution
 <table>
     <tr>
         <th>Code Language</th>
@@ -53,7 +100,7 @@ In this work, we introduces a jailbreaking approach, CodeJailbreaker, designed t
 Jailbreaking targeting code generation is an underexplored domain, with RMCBench being the only related work till now. We therefore utilize the explicit malicious prompts provided by the RMCBench study as the baseline. 
 For the text-to-code task, the RMCBench study also introduced another type of prompt that combines the malicious instruction with a jailbreak template. Following their study, we use a popular jailbreak template from the jailbreakchat.com, as shown in *"data/EMP+T.md"*, to combine with the malicious instruction.
 
-## Run CodeJailbreaker from Scratch
+## Usage
 ### Step 1: Prepare the LLMs tested
 We evaluate CodeJailbreaker on senven LLMs:
 <table>
@@ -98,13 +145,22 @@ For CodeLlama-13b-Instruct-hf and DeepSeek-Coder-7B, you can download their weig
 
 ### Step 2: Run CodeJailbreaker
 For Code LLMs, you need fill the path to your models in *code_LLM.py*, then you can run with:
-> python code_LLM.py
+
+```sh
+python code_LLM.py
+```
 
 For General LLMs, you need fill the url and your api_key of the models' API in *general_LLM.py*, then you can run with:
-> python general_LLM.py
+
+```sh
+python general_LLM.py
+```
 
 ### Step 3: Evaluate CodeJailbreaker
 After running CodeJailbreaker, the result will be put under *result* directory.
 
 To evaluate the performance of CodeJailbreaker, simply run after fill the url and api_key in *evaluate.py*:
-> python evaluate.py
+
+```sh
+python evaluate.py
+```
